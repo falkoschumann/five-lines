@@ -16,9 +16,7 @@ enum RawTile {
 
 interface Tile {
   isAir(): boolean;
-  isStone(): boolean;
   isFallingStone(): boolean;
-  isBox(): boolean;
   isFallingBox(): boolean;
   isLock1(): boolean;
   isLock2(): boolean;
@@ -34,15 +32,7 @@ class Air implements Tile {
     return true;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -83,15 +73,7 @@ class Flux implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -134,15 +116,7 @@ class Unbreakable implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -182,15 +156,7 @@ class Player implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -227,15 +193,7 @@ class Stone implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return true;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -280,16 +238,8 @@ class FallingStone implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
     return true;
-  }
-
-  isBox(): boolean {
-    return false;
   }
 
   isFallingBox(): boolean {
@@ -327,16 +277,8 @@ class Box implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
     return false;
-  }
-
-  isBox(): boolean {
-    return true;
   }
 
   isFallingBox(): boolean {
@@ -380,15 +322,7 @@ class FallingBox implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -427,15 +361,7 @@ class Key1 implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -480,15 +406,7 @@ class Lock1 implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -527,15 +445,7 @@ class Key2 implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
@@ -580,15 +490,7 @@ class Lock2 implements Tile {
     return false;
   }
 
-  isStone(): boolean {
-    return false;
-  }
-
   isFallingStone(): boolean {
-    return false;
-  }
-
-  isBox(): boolean {
     return false;
   }
 
