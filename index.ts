@@ -190,7 +190,6 @@ class Player implements Tile {
 
 interface FallingState {
   isFalling(): boolean;
-  isResting(): boolean;
   moveHorizontal(tile: Tile, dx: number): void;
 }
 
@@ -199,20 +198,12 @@ class Falling implements FallingState {
     return true;
   }
 
-  isResting(): boolean {
-    return false;
-  }
-
   moveHorizontal(tile: Tile, dx: number) { }
 }
 
 class Resting implements FallingState {
   isFalling(): boolean {
     return false;
-  }
-
-  isResting(): boolean {
-    return true;
   }
 
   moveHorizontal(tile: Tile, dx: number) {
