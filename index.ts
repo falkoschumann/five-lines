@@ -29,6 +29,7 @@ interface Tile {
   rest(): void;
   isFalling(): boolean;
   canFall(): boolean;
+  update(x: number, y: number): void;
 }
 
 class Air implements Tile {
@@ -82,6 +83,8 @@ class Air implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 class Flux implements Tile {
@@ -137,6 +140,8 @@ class Flux implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 class Unbreakable implements Tile {
@@ -189,6 +194,8 @@ class Unbreakable implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 class Player implements Tile {
@@ -238,6 +245,8 @@ class Player implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 interface FallingState {
@@ -324,6 +333,16 @@ class Stone implements Tile {
   canFall(): boolean {
     return true;
   }
+
+  update(x: number, y: number): void {
+    if (map[y + 1][x].isAir()) {
+      this.falling = new Falling();
+      map[y + 1][x] = this;
+      map[y][x] = new Air();
+    } else if (this.falling.isFalling()) {
+      this.falling = new Resting();
+    }
+  }
 }
 
 class Box implements Tile {
@@ -383,6 +402,16 @@ class Box implements Tile {
   canFall(): boolean {
     return true;
   }
+
+  update(x: number, y: number): void {
+    if (map[y + 1][x].isAir()) {
+      this.falling = new Falling();
+      map[y + 1][x] = this;
+      map[y][x] = new Air();
+    } else if (this.falling.isFalling()) {
+      this.falling = new Resting();
+    }
+  }
 }
 
 class Key1 implements Tile {
@@ -440,6 +469,8 @@ class Key1 implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 class Lock1 implements Tile {
@@ -491,6 +522,8 @@ class Lock1 implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 class Key2 implements Tile {
@@ -548,6 +581,8 @@ class Key2 implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 class Lock2 implements Tile {
@@ -599,6 +634,8 @@ class Lock2 implements Tile {
   canFall(): boolean {
     return false;
   }
+
+  update(x: number, y: number): void { }
 }
 
 interface Input {
@@ -722,13 +759,7 @@ function updateMap() {
 }
 
 function updateTile(x: number, y: number) {
-  if (map[y][x].canFall() && map[y + 1][x].isAir()) {
-    map[y][x].drop();
-    map[y + 1][x] = map[y][x];
-    map[y][x] = new Air();
-  } else if (map[y][x].isFalling()) {
-    map[y][x].rest();
-  }
+  map[y][x].update(x, y);
 }
 
 function draw() {
