@@ -753,13 +753,9 @@ function handleInputs() {
 function updateMap() {
   for (let y = map.length - 1; y >= 0; y--) {
     for (let x = 0; x < map[y].length; x++) {
-      updateTile(x, y);
+      map[y][x].update(x, y);
     }
   }
-}
-
-function updateTile(x: number, y: number) {
-  map[y][x].update(x, y);
 }
 
 function draw() {
