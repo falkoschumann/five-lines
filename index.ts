@@ -260,7 +260,7 @@ class Key implements Tile {
 }
 
 class Lock implements Tile {
-  constructor(private color: string, private lock1: boolean, private lock2: boolean) { }
+  constructor(private color: string, private lock1: boolean) { }
 
   isAir(): boolean {
     return false;
@@ -271,7 +271,7 @@ class Lock implements Tile {
   }
 
   isLock2(): boolean {
-    return this.lock2;
+    return !this.lock1;
   }
 
   draw(g: CanvasRenderingContext2D, x: number, y: number) {
@@ -362,9 +362,9 @@ function transformTile(tile: RawTile) {
     case RawTile.BOX: return new Box(new Resting());
     case RawTile.FALLING_BOX: return new Box(new Falling());
     case RawTile.KEY1: return new Key("#ffcc00", new RemoveLock1());
-    case RawTile.LOCK1: return new Lock("#ffcc00", true, false);
+    case RawTile.LOCK1: return new Lock("#ffcc00", true);
     case RawTile.KEY2: return new Key("#00ccff", new RemoveLock2());
-    case RawTile.LOCK2: return new Lock("#00ccff", false, true);
+    case RawTile.LOCK2: return new Lock("#00ccff", false);
   }
 }
 
