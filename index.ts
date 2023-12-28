@@ -181,7 +181,7 @@ class Stone implements Tile {
   }
 
   moveHorizontal(dx: number) {
-    this.fallStrategy.getFalling().moveHorizontal(this, dx);
+    this.fallStrategy.moveHorizontal(this, dx);
   }
 
   moveVertical(dy: number) { }
@@ -216,7 +216,7 @@ class Box implements Tile {
   }
 
   moveHorizontal(dx: number) {
-    this.fallStrategy.getFalling().moveHorizontal(this, dx);
+    this.fallStrategy.moveHorizontal(this, dx);
   }
 
   moveVertical(dy: number) { }
@@ -307,10 +307,6 @@ class FallStrategy {
   constructor(private falling: FallingState) {
   }
 
-  getFalling() {
-    return this.falling;
-  }
-
   update(tile: Tile, x: number, y: number): void {
     this.falling = map[y + 1][x].isAir() ? new Falling() : new Resting();
     this.drop(tile, x, y);
@@ -321,6 +317,10 @@ class FallStrategy {
       map[y + 1][x] = tile;
       map[y][x] = new Air();
     }
+  }
+
+  moveHorizontal(tile: Tile, dx: number) {
+    this.falling.moveHorizontal(tile, dx);
   }
 }
 
