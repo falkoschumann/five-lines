@@ -22,6 +22,7 @@ interface Tile {
   moveHorizontal(dx: number): void;
   moveVertical(dy: number): void;
   update(x: number, y: number): void;
+  getBlockOnTopState(): FallingState;
 }
 
 class Air implements Tile {
@@ -49,6 +50,10 @@ class Air implements Tile {
   }
 
   update(x: number, y: number): void { }
+
+  getBlockOnTopState(): FallingState {
+    return new Falling();
+  }
 }
 
 class Flux implements Tile {
@@ -78,6 +83,10 @@ class Flux implements Tile {
   }
 
   update(x: number, y: number): void { }
+
+  getBlockOnTopState(): FallingState {
+    return new Resting();
+  }
 }
 
 class Unbreakable implements Tile {
@@ -104,6 +113,10 @@ class Unbreakable implements Tile {
   moveVertical(dy: number) { }
 
   update(x: number, y: number): void { }
+
+  getBlockOnTopState(): FallingState {
+    return new Resting();
+  }
 }
 
 class Player implements Tile {
@@ -127,6 +140,10 @@ class Player implements Tile {
   moveVertical(dy: number) { }
 
   update(x: number, y: number): void { }
+
+  getBlockOnTopState(): FallingState {
+    return new Resting();
+  }
 }
 
 interface FallingState {
@@ -189,6 +206,10 @@ class Stone implements Tile {
   update(x: number, y: number): void {
     this.fallStrategy.update(this, x, y);
   }
+
+  getBlockOnTopState(): FallingState {
+    return new Resting();
+  }
 }
 
 class Box implements Tile {
@@ -224,6 +245,10 @@ class Box implements Tile {
   update(x: number, y: number): void {
     this.fallStrategy.update(this, x, y);
   }
+
+  getBlockOnTopState(): FallingState {
+    return new Resting();
+  }
 }
 
 class Key implements Tile {
@@ -257,6 +282,10 @@ class Key implements Tile {
   }
 
   update(x: number, y: number): void { }
+
+  getBlockOnTopState(): FallingState {
+    return new Resting();
+  }
 }
 
 // @ts-expect-error
@@ -308,7 +337,7 @@ class FallStrategy {
   }
 
   update(tile: Tile, x: number, y: number): void {
-    this.falling = map[y + 1][x].isAir() ? new Falling() : new Resting();
+    this.falling = map[y + 1][x].getBlockOnTopState();
     this.drop(tile, x, y);
   }
 
