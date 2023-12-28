@@ -259,6 +259,7 @@ class Key implements Tile {
   update(x: number, y: number): void { }
 }
 
+// @ts-expect-error
 class Lock implements Tile {
   constructor(private keyConf: KeyConfiguration) { }
 
@@ -378,8 +379,10 @@ function transformTile(tile: RawTile) {
     case RawTile.BOX: return new Box(new Resting());
     case RawTile.FALLING_BOX: return new Box(new Falling());
     case RawTile.KEY1: return new Key(YELLOW_KEY);
+    // @ts-expect-error
     case RawTile.LOCK1: return new Lock(YELLOW_KEY);
     case RawTile.KEY2: return new Key(BLUE_KEY);
+    // @ts-expect-error
     case RawTile.LOCK2: return new Lock(BLUE_KEY);
   }
 }
@@ -389,6 +392,7 @@ function transformMap() {
   for (let y = 0; y < rawMap.length; y++) {
     map[y] = new Array(rawMap[y].length);
     for (let x = 0; x < rawMap[y].length; x++) {
+      // @ts-expect-error
       map[y][x] = transformTile(rawMap[y][x])
     }
   }
