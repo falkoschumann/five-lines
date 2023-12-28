@@ -247,12 +247,12 @@ class Key implements Tile {
   }
 
   moveHorizontal(dx: number) {
-    remove(this.keyConf.getRemoveStrategy());
+    this.keyConf.removeLock();
     moveToTile(playerx + dx, playery);
   }
 
   moveVertical(dy: number) {
-    remove(this.keyConf.getRemoveStrategy());
+    this.keyConf.removeLock();
     moveToTile(playerx, playery + dy);
   }
 
@@ -298,8 +298,8 @@ class KeyConfiguration {
     return this._1;
   }
 
-  getRemoveStrategy() {
-    return this.removeStrategy;
+  removeLock() {
+    remove(this.removeStrategy);
   }
 }
 
