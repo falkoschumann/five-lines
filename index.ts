@@ -399,18 +399,18 @@ class Player {
   }
 
   move(dx: number, dy: number) {
-    moveToTile(this.x + dx, this.y + dy);
+    this.moveToTile(this.x + dx, this.y + dy);
   }
 
   pushHorizontal(tile: Tile, dx: number) {
     if (map[this.y][this.x + dx + dx].isAir()
       && !map[this.y + 1][this.x + dx].isAir()) {
       map[this.y][this.x + dx + dx] = tile;
-      moveToTile(this.x + dx, this.y);
+      this.moveToTile(this.x + dx, this.y);
     }
   }
 
-  moveToTile(newx: number, newy: number) {
+  private moveToTile(newx: number, newy: number) {
     map[this.y][this.x] = new Air();
     map[newy][newx] = new PlayerTile();
     this.x = newx;
@@ -491,10 +491,6 @@ class RemoveLock2 implements RemoveStrategy {
 
 const YELLOW_KEY = new KeyConfiguration("#ffcc00", true, new RemoveLock1());
 const BLUE_KEY = new KeyConfiguration("#00ccff", false, new RemoveLock2());
-
-function moveToTile(newx: number, newy: number) {
-  player.moveToTile(newx, newy);
-}
 
 function update(player: Player) {
   handleInputs(player);
