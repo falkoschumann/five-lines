@@ -402,14 +402,10 @@ class Player {
   }
 
   pushHorizontal(map: Map, tile: Tile, dx: number) {
-    if (map.isAir(this.x + dx + dx, this.y)
-      && !map.isAir(this.x + dx, this.y + 1)) {
-      map.setTile(this.x + dx + dx, this.y, tile);
-      this.moveToTile(map, this.x + dx, this.y);
-    }
+    map.pushHorizontal(this, tile, this.x, this.y, dx);
   }
 
-  private moveToTile(map: Map, newx: number, newy: number) {
+  moveToTile(map: Map, newx: number, newy: number) {
     map.movePlayer(this.x, this.y, newx, newy);
     this.x = newx;
     this.y = newy;
@@ -493,6 +489,14 @@ class Map {
           this.map[y][x] = new Air;
         }
       }
+    }
+  }
+
+  pushHorizontal(player: Player, tile: Tile, x: number, y: number, dx: number) {
+    if (this.isAir(x + dx + dx, y)
+      && !this.isAir(x + dx, y + 1)) {
+      map.setTile(x + dx + dx, y, tile);
+      player.moveToTile(this, x + dx, y);
     }
   }
 }
