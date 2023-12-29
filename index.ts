@@ -527,7 +527,7 @@ const BLUE_KEY = new KeyConfiguration("#00ccff", false, new RemoveLock2());
 
 function update(map: Map, player: Player) {
   handleInputs(map, player);
-  updateMap(map);
+  map.update();
 }
 
 function handleInputs(map: Map, player: Player) {
@@ -535,10 +535,6 @@ function handleInputs(map: Map, player: Player) {
     let current = inputs.pop();
     current.handle(map, player);
   }
-}
-
-function updateMap(map: Map) {
-  map.update();
 }
 
 function draw(map: Map, player: Player) {
