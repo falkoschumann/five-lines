@@ -436,10 +436,6 @@ class Map {
     return this.map;
   }
 
-  setMap(map: Tile[][]) {
-    this.map = map;
-  }
-
   transform() {
     this.map = new Array(rawMap.length);
     for (let y = 0; y < rawMap.length; y++) {
