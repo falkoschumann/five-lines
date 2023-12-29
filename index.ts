@@ -465,10 +465,6 @@ class Map {
     return this.map[y][x].isAir();
   }
 
-  setTile(x: number, y: number, tile: Tile) {
-    this.map[y][x] = tile;
-  }
-
   movePlayer(x: number, y: number, newx: number, newy: number) {
     this.map[y][x] = new Air();
     this.map[newy][newx] = new PlayerTile();
@@ -495,7 +491,7 @@ class Map {
   pushHorizontal(player: Player, tile: Tile, x: number, y: number, dx: number) {
     if (this.isAir(x + dx + dx, y)
       && !this.isAir(x + dx, y + 1)) {
-      map.setTile(x + dx + dx, y, tile);
+      this.map[y][x + dx + dx] = tile;
       player.moveToTile(this, x + dx, y);
     }
   }
