@@ -334,7 +334,7 @@ class KeyConfiguration {
   }
 
   removeLock(map: Map) {
-    remove(map, this.removeStrategy);
+    map.remove(this.removeStrategy);
   }
 }
 
@@ -521,10 +521,6 @@ function transformTile(tile: RawTile) {
 }
 
 let inputs: Input[] = [];
-
-function remove(map: Map, shouldRemove: RemoveStrategy) {
-  map.remove(shouldRemove);
-}
 
 interface RemoveStrategy {
   check(tile: Tile): boolean;
