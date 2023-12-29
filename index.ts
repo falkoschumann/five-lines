@@ -449,6 +449,14 @@ class Map {
       }
     }
   }
+
+  update() {
+    for (let y = this.map.length - 1; y >= 0; y--) {
+      for (let x = 0; x < this.map[y].length; x++) {
+        this.map[y][x].update(map, x, y);
+      }
+    }
+  }
 }
 
 let map = new Map();
@@ -522,11 +530,7 @@ function handleInputs(map: Map, player: Player) {
 }
 
 function updateMap(map: Map) {
-  for (let y = map.getMap().length - 1; y >= 0; y--) {
-    for (let x = 0; x < map.getMap()[y].length; x++) {
-      map.getMap()[y][x].update(map, x, y);
-    }
-  }
+  map.update();
 }
 
 function draw(map: Map, player: Player) {
