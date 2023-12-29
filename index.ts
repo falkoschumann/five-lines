@@ -490,10 +490,6 @@ function transformTile(tile: RawTile) {
   }
 }
 
-function transformMap(map: Map) {
-  map.transform();
-}
-
 let inputs: Input[] = [];
 
 function remove(map: Map, shouldRemove: RemoveStrategy) {
@@ -561,7 +557,7 @@ function gameLoop(map: Map) {
 }
 
 window.onload = () => {
-  transformMap(map);
+  map.transform();
   gameLoop(map);
 }
 
