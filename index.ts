@@ -426,7 +426,7 @@ let rawMap: RawTile[][] = [
 class Map {
   private map: Tile[][];
 
-  transform() {
+  constructor() {
     this.map = new Array(rawMap.length);
     for (let y = 0; y < rawMap.length; y++) {
       this.map[y] = new Array(rawMap[y].length);
@@ -497,6 +497,25 @@ class Map {
   }
 }
 
+interface RemoveStrategy {
+  check(tile: Tile): boolean;
+}
+
+class RemoveLock1 implements RemoveStrategy {
+  check(tile: Tile) {
+    return tile.isLock1();
+  }
+}
+
+class RemoveLock2 implements RemoveStrategy {
+  check(tile: Tile) {
+    return tile.isLock2();
+  }
+}
+
+const YELLOW_KEY = new KeyConfiguration("#ffcc00", true, new RemoveLock1());
+const BLUE_KEY = new KeyConfiguration("#00ccff", false, new RemoveLock2());
+
 let map = new Map();
 
 function assertExhausted(x: never): never {
@@ -521,25 +540,6 @@ function transformTile(tile: RawTile) {
 }
 
 let inputs: Input[] = [];
-
-interface RemoveStrategy {
-  check(tile: Tile): boolean;
-}
-
-class RemoveLock1 implements RemoveStrategy {
-  check(tile: Tile) {
-    return tile.isLock1();
-  }
-}
-
-class RemoveLock2 implements RemoveStrategy {
-  check(tile: Tile) {
-    return tile.isLock2();
-  }
-}
-
-const YELLOW_KEY = new KeyConfiguration("#ffcc00", true, new RemoveLock1());
-const BLUE_KEY = new KeyConfiguration("#00ccff", false, new RemoveLock2());
 
 function update(map: Map, player: Player) {
   handleInputs(map, player);
@@ -577,7 +577,6 @@ function gameLoop(map: Map) {
 }
 
 window.onload = () => {
-  map.transform();
   gameLoop(map);
 }
 
